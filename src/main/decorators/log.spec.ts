@@ -20,6 +20,7 @@ const makeController = (): Controller => {
 }
 
 const makeLogErrorRepository = (): LogErrorRepository => {
+  //  ola
   class LogErrorRepositoryStub implements LogErrorRepository {
     async log (stack: string): Promise<void> {
       return await new Promise(resolve => resolve())
