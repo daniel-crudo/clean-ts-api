@@ -19,10 +19,10 @@ describe('SignUp Routes', () => {
     await request(app)
       .post('/api/signup')
       .send({
-        name: 'Daniel',
-        email: 'daniel.crudo3@mail.com',
-        password: '123',
-        passwordConfirmation: '123'
+        name: 'any_name',
+        email: 'any_email',
+        password: 'any_password',
+        passwordConfirmation: 'any_passwordConfirmation'
       })
       .expect(200)
   })
