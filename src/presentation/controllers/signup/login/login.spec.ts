@@ -1,5 +1,5 @@
 import { LoginController } from './login'
-import { badRequest, serverError, unauthorized, ok } from '../../../helpers/http-helper'
+import { badRequest, serverError, unauthorized, ok } from '../../../helpers/http/http-helper'
 import { MissingParamError } from '../../../errors'
 import { HttpRequest, Authentication, Validation } from './login-protocols'
 
@@ -42,8 +42,8 @@ const makeSut = (): SutTypes => {
   const sut = new LoginController(authenticationStub, validationStub)
   return {
     sut,
-    authenticationStub,
-    validationStub
+    validationStub,
+    authenticationStub
   }
 }
 
