@@ -1,4 +1,6 @@
 import { AccountModel } from '../add-account/db-add-account-protocols'
+import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository'
+import { DbAuthentication } from './db-authencitcation'
 
 describe('DbAuthentication UseCase', () => {
   test('Should call LoadAccountByEmailRepository with correct email', async () => {
@@ -14,8 +16,8 @@ describe('DbAuthentication UseCase', () => {
       }
     }
     const loadAccountByEmailRepositoryStub = new LoadAccountByEmailRepositoryStub()
-    const sut = new DbAuthentication()
-    const loadSpy = jest.spyOn(loadAccountByEmailRepository, 'load')
+    const sut = new DbAuthentication(loadAccountByEmailRepositoryStub)
+    const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
     await sut.auth({
       email: 'any_email@mail.com',
       password: 'any_password'
