@@ -1,5 +1,5 @@
 export * from '../../../domain/usecases/add-account'
 export * from '../../../domain/models/account'
 export * from '../../protocols/criptography/hasher'
-export * from '../../../infra/db/mongodb/account/account'
-export * from '../../../data/protocols/db/add-account-repository'
+export * from '../../../infra/db/mongodb/account/account-mongo-repository'
+export * from '../../../data/protocols/db/account/add-account-repository'
