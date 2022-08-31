@@ -1,6 +1,9 @@
 import { BcryptAdapter } from './bcrypt-adapter'
 import bcrypt from 'bcrypt'
 
+export const throwError = (): never => {
+  throw new Error()
+}
 jest.mock('bcrypt', () => ({
   async hash (): Promise<string> {
     return await new Promise(resolve => resolve('hash'))
@@ -49,21 +52,21 @@ describe('Bcrypt Adapter', () => {
 
   test('Should return true when compare succeeds', async () => {
     const sut = makeSut()
-    const isValid = sut.compare('any_value', 'any_hash')
+    const isValid = await sut.compare('any_value', 'any_hash')
     expect(isValid).toBe(true)
   })
 
   test('Should return false when compare fails', async () => {
     const sut = makeSut()
-    jest.spyOn(bcrypt, 'compare').mockReturnValueOnce(new Promise(resolve => resolve(false)))
-    const isValid = sut.compare('any_value', 'any_hash')
+    jest.spyOn(bcrypt, 'compare').mockImplementationOnce(() => false)
+    const isValid = await sut.compare('any_value', 'any_hash')
     expect(isValid).toBe(false)
   })
 
   test('Should throw if compare throws', async () => {
     const sut = makeSut()
-    jest.spyOn(bcrypt, 'compare').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    const promise = sut.hash('any_value')
+    jest.spyOn(bcrypt, 'compare').mockImplementationOnce(throwError)
+    const promise = sut.compare('any_value', 'any_hash')
     await expect(promise).rejects.toThrow()
   })
 })
